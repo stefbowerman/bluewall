@@ -7,7 +7,7 @@ ini_set( 'display_errors', 'On' );
 // Start the session
 session_start();
 
-define( 'INSTAGRAM_DIR', __DIR__ . '/instagram' );
+define( 'INSTAGRAM_DIR', __DIR__ . '/Instagram/' );
 
 require( __DIR__ . '/SplClassLoader.php' );
 require( __DIR__ . '/config.php');
@@ -28,34 +28,33 @@ $cache = './cache.json';
 // }
 // else{
 
-	$loader = new SplClassLoader( 'Instagram', dirname( INSTAGRAM_DIR ) );
-	$loader->register();
-
 	$instagram = new Instagram\Instagram;
 
-	// $auth_config = array(
-	//     'client_id'         => '096e2b444cfe451c9b7ab8f0da3f58bf',
-	//     'client_secret'     => 'edf4fb0ab0d94bbaa75befdcdf294e29',
-	//     'redirect_uri'      => 'http://localhost:8888',
-	//     'scope'             => array( 'likes', 'comments', 'relationships' )
-	// );
+	//  $auth_config = array(
+	//      'client_id'         => '97c4460d9e8c413f90194ae7d10b7f0c',
+	//      'client_secret'     => '9055fea6106e45de8be726d5bbdc7d72',
+	//      'redirect_uri'      => 'http://bluewall.stefanbowerman.com',
+	//      'scope'             => array( 'likes', 'comments', 'relationships' )
+	//  );
 
-	//$auth = new Instagram\Auth( $auth_config );
-	//$auth->authorize();
-	//$code = $_GET['code'] // '60a58ca70f7449319d01e059fcecd0ef' <- Something like this
-	//$accessToken = $auth->getAccessToken( '60a58ca70f7449319d01e059fcecd0ef'));
-
+	// $auth = new Instagram\Auth( $auth_config );
+	// $auth->authorize();
+	// $code = $_GET['code']; // '60a58ca70f7449319d01e059fcecd0ef' <- Something like this
+	// $accessToken = $auth->getAccessToken( $code );
+	// var_dump($accessToken);
 	$instagram->setAccessToken( $accessToken );
 
 	$location = $instagram->getLocation( $target['id'] );
 	$media = $location->getMedia( isset( $_GET['max_id'] ) ? array( 'max_id' => $_GET['max_id'] ) : null );
 
-	// Create Cache
-	$file_contents = array();
-	foreach($media->getData() as $mData){
-		$file_contents[] = (array)$mData;
+	if(!file_exists($cache)){
+		// Create Cache
+		$file_contents = array();
+		foreach($media->getData() as $mData){
+			$file_contents[] = (array)$mData;
+		}
+		file_put_contents( $cache, json_encode($file_contents) );
 	}
-	file_put_contents( $cache, json_encode($file_contents) );
 
 	require( 'views/_header.php' );
 	require( 'views/location.php' );

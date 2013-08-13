@@ -4,7 +4,7 @@ Blue Wall
 Instagram photo stream for the Girth™ Lab space in downtown LA.
 
 
-To get the accesstoken, first authorize, and save the code that comes back
+To get the access token, first authorize, and save the code that comes back.
 
 ```php
 $auth_config = array(

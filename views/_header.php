@@ -11,7 +11,3 @@
 	<header>
 		Whats up on broadway.
 	</header>
-
-	<div id="content">
-
-	<?php if( isset( $error ) ): ?><p id="error"><?php echo htmlspecialchars( $error ) ?></p><?php endif; ?>

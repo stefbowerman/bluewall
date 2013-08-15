@@ -10,3 +10,9 @@ $target = array(
 	'latitude'     => /* Latitude (Str) */,
 	'longitude'    => /* Longitude (Str) */
 );
+
+$mentionsClosure = function($m){
+    return sprintf( '<a href="//instagram.com/%s">%s</a>', $m[1], $m[0] ); /* Do whatever you want with mentions here */
+}; 
+
+$timeFormat = 'n.j.Y' ; /* String for time formatting */

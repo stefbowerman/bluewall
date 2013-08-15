@@ -1,19 +1,6 @@
 <?php
 
-// Turn on error reporting
-error_reporting( E_ALL );
-ini_set( 'display_errors', 'On' );
-
-// Start the session
-session_start();
-
-define( 'INSTAGRAM_DIR', __DIR__ . '/Instagram/' );
-
-require( __DIR__ . '/SplClassLoader.php' );
-require( __DIR__ . '/config.php');
-
-$loader = new SplClassLoader( 'Instagram', dirname( INSTAGRAM_DIR ) );
-$loader->register();
+require( __DIR__ . '/bootstrap.php');
 
 $cache = './cache.json';
 
@@ -45,6 +32,6 @@ else{
 	file_put_contents( $cache, json_encode($file_contents) );
 }
 
-require( 'views/_header.php' );
-require( 'views/location.php' );
-require( 'views/_footer.php' );
+require( 'Views/_header.php' );
+require( 'Views/location.php' );
+require( 'Views/_footer.php' );

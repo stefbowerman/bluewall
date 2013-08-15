@@ -12,7 +12,6 @@ define( 'LIB_DIR', __DIR__ . '/Lib' );
 
 require( __DIR__ . '/SplClassLoader.php' );
 require( __DIR__ . '/config.php' );
-require( LIB_DIR . '/Utils.php' );
 
 $loader = new SplClassLoader( 'Instagram', dirname( INSTAGRAM_DIR ) );
 $loader->register();

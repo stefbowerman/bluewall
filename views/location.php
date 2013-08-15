@@ -11,7 +11,7 @@
 			<div style="margin-bottom:50px">
 				<div style="text-align:right; margin-bottom:10px; font-size:13px">
 					<?php echo $m->getCreatedTime( $timeFormat ) ?>
-					<?php echo Utils::time_ago( $m->getCreatedTime() ) ?>
+					<?php echo $m->getCreatedTimeAgo() ?>
 				</div>
 				<a href="<?php echo $m->getLink() ?>">
 					<img src="<?php echo $m->getStandardRes()->url ?>">
@@ -26,7 +26,7 @@
 			<div style="width:200px; height:400px;float:left; margin-bottom:30px;">
 				<div style="text-align:right; margin-bottom:10px; font-size:13px">
 					<?php echo $m->getCreatedTime( $timeFormat ) ?>
-					<?php echo Utils::time_ago($m->getCreatedTime()) ?>
+					<?php echo $m->getCreatedTimeAgo() ?>
 				</div>
 				<a href="<?php echo $m->getLink() ?>">
 					<img src="<?php echo $m->getLowRes()->url ?>" style="max-width:100%">

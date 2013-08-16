@@ -25,3 +25,18 @@ Then call getAccessToken to retrieve the token.
 ```php
 $accessToken = $auth->getAccessToken( $code );
 ```
+
+To setup the DB table
+
+```SQL
+CREATE TABLE `instagram_media` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `instagram_id` varchar(255) NOT NULL,
+  `data` blob NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `inserted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `instagram_id` (`instagram_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+```

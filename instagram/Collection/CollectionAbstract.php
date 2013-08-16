@@ -205,4 +205,23 @@ abstract class CollectionAbstract implements \IteratorAggregate, \ArrayAccess, \
         return count( $this->data );
     }
 
+    /**
+     * Get the first element in the collection
+     *
+     * @access public
+     */
+    public function getFirst() {
+        return $this[0];
+    }
+
+    /**
+     * Get the last element in the collection
+     *
+     * @access public
+     */
+    public function getLast() {
+        return $this[ $this->count() - 1 ];
+    }
+
+
 }

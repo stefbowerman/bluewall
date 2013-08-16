@@ -12,12 +12,19 @@
 	<meta name="viewport" content="width=device-width">
 
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
-	<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+	<!-- script src="js/vendor/modernizr-2.6.2.min.js"></script -->
 
 </head>
 
 <body>
 
 	<header>
-		Whats up on broadway.
+		<div id="title">
+			Whats Up On Broadway
+			<div class="circles clearfix">
+				<?php $x=0; while($x < 20 ){ ?>
+					<div class="circle"></div>
+				<?php $x++;  } ?>
+			</div>
+		</div>
 	</header>

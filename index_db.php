@@ -16,7 +16,8 @@ require( __DIR__ . '/bootstrap.php');
 
 $result = $dbLink->query("SELECT data FROM instagram_media 	ORDER BY created_at DESC LIMIT 1");
 
-$serializedMedia = $result->fetch_row()[0];
+$serializedMedia = $result->fetch_row();
+$serializedMedia = $serializedMedia[0];
 
 $dbData = new stdClass();
 $dbData->data = array(unserialize($serializedMedia));

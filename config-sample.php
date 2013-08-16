@@ -18,6 +18,7 @@ define('DB_CHARSET', 'utf8');
 /** The Database Collate type. */
 define('DB_COLLATE', '');
 
+
 $clientID     = /* Client ID Goes Here */;
 $clientSecret = /* Client Secret Goes Here */;
 $accessToken  = /* Access Token Goes Here */;

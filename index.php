@@ -14,13 +14,13 @@ else{
 	$instagram->setAccessToken( $accessToken );
 
 	$location = $instagram->getLocation( $target['id'] );
-	$mediaCollection = $location->getMedia( isset( $_GET['max_id'] ) ? array( 'max_id' => $_GET['max_id'] ) : null );
+	$mediaCollection = $location->getMedia();
 
 	$cache->writeWithMediaCollection($mediaCollection);
 }
 
 $media = $mediaCollection->getFirst();
 
-require( 'Views/_header.php' );
-require( 'Views/location.php' );
-require( 'Views/_footer.php' );
+require( 'views/_header.php' );
+require( 'views/location.php' );
+require( 'views/_footer.php' );

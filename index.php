@@ -3,9 +3,11 @@
 require( __DIR__ . '/bootstrap.php');
 
 if( $cache->fileExists() && $cache->isFresh() ){
-  // If a cache file exists, and it is newer than 1 hour, use it
+  	// If a cache file exists, and it is newer than 1 hour, use it
 	$mediaCollection = New Instagram\Collection\MediaCollection();
 	$mediaCollection->setData( $cache->getMediaCollectionData() );
+
+	// Need to update cache to save $location
 
 }
 else{

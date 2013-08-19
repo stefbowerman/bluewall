@@ -10,21 +10,26 @@
 	<title>Whats Up On Broadway</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
-
+	<link rel="stylesheet" type="text/css" href="/assets/css/960-min.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
 	<!-- script src="js/vendor/modernizr-2.6.2.min.js"></script -->
-
 </head>
 
 <body>
-
-	<header>
-		<div id="title">
-			Whats Up On Broadway
-			<div class="circles clearfix">
-				<?php $x=0; while($x < 20 ){ ?>
-					<div class="circle"></div>
-				<?php $x++;  } ?>
+	<div id="container" class="container_16">
+		<header class="grid_6">
+			<div class="header-content">
+				<div id="title">
+					Whats Up On Broadway
+					<div class="circles clearfix">
+						<?php $x=0; while($x < 20 ){ ?>
+							<div class="circle"></div>
+						<?php $x++;  } ?>
+					</div>
+				</div>
+				<div class="site-detail">
+					{ lat : '<?php echo round($target['latitude'], 5)?>', long : '<?php echo round($target['longitude'], 5)?>' }
+				</div>
 			</div>
-		</div>
-	</header>
+
+		</header>

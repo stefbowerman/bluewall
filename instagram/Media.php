@@ -83,6 +83,26 @@ class Media extends \Instagram\Core\BaseObjectAbstract {
     }
 
     /**
+     * Get the media type
+     *
+     * @return string
+     * @access public
+     */
+    public function getType() {
+        return $this->data->type;
+    }
+
+    /**
+     * Get the media type
+     * @param string $format / 'video'
+     * @return bool
+     * @access public
+     */
+    public function isType($type) {
+        return $this->data->type == $type;
+    }  
+
+    /**
      * Get the media caption
      *
      * @return string

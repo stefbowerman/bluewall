@@ -1,5 +1,68 @@
+function ScrollAjax($el){
+	var self          = this,
+		$appendEl     = $el,
+		$win          = $(window),
+		$doc          = $(document),
+		baseURL       = '/ajax/media.php?page=',
+		page          = 1,
+		isLoading     = false;
+
+	this.baseURL = baseURL;
+
+	this.getPage = function(){
+		return page;
+	}
+	this.nextPage = function(){
+		page++;
+		return this;
+	}
+
+	getNextPageContent = function(callback){
+		isLoading = true;
+
+		console.log('fetching content');
+
+		self.nextPage();
+
+		$.ajax({
+			url: self.baseURL + page,
+		})
+		.done(function(data) {
+
+			if(data.length){
+				for (var i = 0; i < data.length; i++) {
+
+					$appendEl.append( data[i]['html'] );
+				}
+
+			}else{
+				$win.unbind('scroll');
+				$appendEl.append('NO MORE CONTENT');
+			}
+		
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			isLoading = false;
+			//console.log('done fetching content');
+		});
+	}
+
+	$win.on('scroll', function(){
+		if(isLoading === false && ($win.scrollTop()/$doc.height() > 0.75) ){
+				getNextPageContent();
+    	}
+	})
+
+	return this;
+}
+
 
 $(function(){
+
+	var infiniteScroll = new ScrollAjax($('#content-stream'));
 
 	// Bubbling Header
 

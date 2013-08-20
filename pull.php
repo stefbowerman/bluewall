@@ -5,20 +5,21 @@ require( __DIR__ . '/bootstrap.php');
 $instagram = new Instagram\Instagram;
 $instagram->setAccessToken( $accessToken );
 
-$location = $instagram->getLocation( $target['id'] );
-
-// Remove this at some point
-$dbLink->query("TRUNCATE TABLE instagram_media");
-
-$result = $dbLink->query("SELECT COUNT(*) FROM instagram_media");
-$count = (int)$result->fetch_row()[0];
+$db = new Mysqlidb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+$count = $db->rawQuery("SELECT COUNT(*) FROM instagram_media");
+$count = $count[0]['COUNT(*)'];
 
 if(!$count){
+
 	echo 'Nothing found in DB <br/>';
 
+	$location = $instagram->getLocation( $target['id'] );
+
+	// Grab initial set of media
 	$mediaCollection = $location->getMedia();
 	$maxId = $mediaCollection->getNextMaxId();
 
+	// Go back page by page to add more until we've gotten everything
 	while ( !is_null($maxId) ){
 		$moreMedia = $location->getMedia( array( 'max_id' => $maxId ) );
 		$mediaCollection->addData( $moreMedia );
@@ -29,85 +30,43 @@ if(!$count){
 	echo 'Found '.$mediaCollection->count().' media items';
 	echo '<br/>';
 
-	// Insert all the media
-	$sqlValues = "";
-	foreach($mediaCollection as $k => $media){
-		$instagramID = $media->getId();
-		$createdAt = $media->getCreatedTime('U');
-		$media = serialize($media);
-		$media = $dbLink->real_escape_string( $media );
+	// Insert each object in the collection 
+	foreach($mediaCollection as $mediaObj){
+		$instagramId = $mediaObj->getId();
+		$createdAt = $mediaObj->getCreatedTime('U');
+		$data = $db->escape( serialize($mediaObj) );
 
-		$sqlValues .= "('$instagramID', '$media', '$createdAt')";
+		$insertion = array('instagram_id' => $instagramId, 'data' => $data, 'created_at' => $createdAt );
 
-		$sqlValues .= $k+1 == $mediaCollection->count() ? ';' : ', ';
+		$insertSuccess = $db->insert('instagram_media', $insertion );
 
-		echo "Inserting media with ID = ".$instagramID."<br/>";
+		if($insertSuccess){
+			echo 'Inserted media with instagram id '.$instagramId.'</br>';
+		}else{
+			echo 'something went wrong';
+		}
 	}
 
-	$sql = "INSERT INTO instagram_media (instagram_id, data, created_at) VALUES $sqlValues " ;
-
-	$dbLink->query($sql);
-
-	if (mysqli_warning_count($dbLink)) { 
-	   $e = mysqli_get_warnings($dbLink); 
-	   do { 
-	       echo "Warning: $e->errno: $e->message\n"; 
-	   } while ($e->next()); 
-	} 
-
-	$dbLink->close();
 }
-else {
-	// $result = $dbLink->query("SELECT instagram_id FROM instagram_media ORDER BY created_at DESC LIMIT 1");
-	// $minId  = $result->fetch_row()[0];
-	// $mediaCollection = $location->getMedia( array( 'min_id' => $minId ) );
+else{
+	$row = $db->query('SELECT instagram_id FROM instagram_media ORDER BY created_at DESC LIMIT 1');
+	$minId = $row[0]['instagram_id'];
 
-	// if( $mediaCollection->count() == 1 ){
-	// 	echo 'Database is up to date';
-	// }else{
-	// 	echo 'MinID = '.$minId."\n";
-	// 	$maxId = $mediaCollection->getNextMaxId();
-	// 	while ( $maxId > $minId ){
-	// 		echo 'MaxID = '.$maxId."\n";
-	// 		$moreMedia = $location->getMedia( array( 'max_id' => $maxId ) );
-	// 		$mediaCollection->addData( $moreMedia );
+	$location = $instagram->getLocation( $target['id'] );
+	$mediaCollection = $location->getMedia( array( 'min_id' => $minId ) );
+	foreach($mediaCollection as $mediaObj){
+		$instagramId = $mediaObj->getId();
+		$createdAt = $mediaObj->getCreatedTime('U');
+		$data = $db->escape( serialize($mediaObj) );
 
-	// 		$maxId = $moreMedia->getNextMaxId();
-	// 	} 
+		$insertion = array('instagram_id' => $instagramId, 'data' => $data, 'created_at' => $createdAt );
 
-	// 	echo 'Found '.$mediaCollection->count().' media items';
-	// 	echo '<br/>';
+		$insertSuccess = $db->insert('instagram_media', $insertion );
 
-	// 	foreach($mediaCollection as $k => $media){var_dump($media->getId());}
-
-	// 	// Insert all the media
-	// 	$sqlValues = "";
-	// 	foreach($mediaCollection as $k => $media){
-	// 		// Make this check because otherwise it'll pull back the last image as the last image in this set
-	// 		if($k+1 != $mediaCollection->count()){
-	// 			$instagramID = $media->getId();
-	// 			$createdAt = $media->getCreatedTime('U');
-	// 			$media = serialize($media);
-	// 			$media = $dbLink->real_escape_string( $media );
-
-	// 			$sqlValues .= "('$instagramID', '$media', '$createdAt')";
-
-	// 			$sqlValues .= $k+1 == $mediaCollection->count() ? ';' : ', ';
-	// 		}
-	// 	}
-
-	// 	$sql = "INSERT INTO instagram_media (instagram_id, data, created_at) VALUES $sqlValues " ;
-
-	// 	$dbLink->query($sql);
-
-	// 	if (mysqli_warning_count($dbLink)) { 
-	// 	   $e = mysqli_get_warnings($dbLink); 
-	// 	   do { 
-	// 	       echo "Warning: $e->errno: $e->message\n"; 
-	// 	   } while ($e->next()); 
-	// 	} 
-
-	// 	$dbLink->close();
-
-	// }
+		if($insertSuccess){
+			echo 'Inserted media with instagram id '.$instagramId.'</br>';
+		}else{
+			echo 'Duplicate entry, could not insert';
+		}
+	}
 }

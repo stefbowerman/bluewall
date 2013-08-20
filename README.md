@@ -36,7 +36,7 @@ CREATE TABLE `instagram_media` (
   `created_at` int(11) NOT NULL,
   `inserted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `instagram_id` (`instagram_id`)
+  UNIQUE KEY `instagram_id` (`instagram_id`),
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 ```

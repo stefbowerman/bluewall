@@ -17,7 +17,7 @@
 
 <body>
 	<div id="container" class="container_16">
-		<header class="grid_6">
+		<header class="grid_10 push_3">
 			<div class="header-content">
 				<div id="title">
 					Whats Up On Broadway
@@ -33,3 +33,5 @@
 			</div>
 
 		</header>
+
+		<div id="content-stream" class="grid_8 push_4">

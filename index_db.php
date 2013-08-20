@@ -4,7 +4,7 @@ require( __DIR__ . '/bootstrap.php');
 
 	// Move this back into bootstrap once the DB is set up on the live site
 
-	$dbLink = new mysqli(DB_HOST, DB_USER, DB_PASSWORD);
+	$db = new Mysqlidb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 	/* check connection */
 	if (mysqli_connect_errno()) {
@@ -12,21 +12,38 @@ require( __DIR__ . '/bootstrap.php');
 	    exit();
 	}
 
-	$dbLink->select_db( DB_NAME );
+	//$results = $db->query("TRUNCATE TABLE instagram_media");
 
-$result = $dbLink->query("SELECT data FROM instagram_media 	ORDER BY created_at DESC LIMIT 1");
+	// Return 1
+	$results = $db->query("SELECT data FROM instagram_media ORDER BY created_at DESC LIMIT 1");
+	$media = $results[0]['data'];
+	$media = unserialize(stripslashes($media));
 
-$serializedMedia = $result->fetch_row();
-$serializedMedia = $serializedMedia[0];
+	// Return 10
+	$dbData = new stdClass();
+	$dbData->data = array();
 
-$dbData = new stdClass();
-$dbData->data = array(unserialize($serializedMedia));
+	$results = $db->query("SELECT data FROM instagram_media ORDER BY created_at DESC LIMIT 10");
+	foreach($results as $r){
+		$dbData->data[] = unserialize(stripslashes($r['data']));
+	}
+	$mediaCollection = New Instagram\Collection\MediaCollection();
+	$mediaCollection->setData($dbData);
 
-$mediaCollection = New Instagram\Collection\MediaCollection();
-$mediaCollection->setData($dbData);
+// $result = $dbLink->query("SELECT data FROM instagram_media 	ORDER BY created_at DESC LIMIT 1");
 
-$media = $mediaCollection->getLast();
+// $serializedMedia = $result->fetch_row();
+// $serializedMedia = $serializedMedia[0];
+
+// $dbData = new stdClass();
+// $dbData->data = array(unserialize($serializedMedia));
+
+// $mediaCollection = New Instagram\Collection\MediaCollection();
+// $mediaCollection->setData($dbData);
+
+// $media = $mediaCollection->getLast();
 
 require( 'Views/_header.php' );
-require( 'Views/location.php' );
+//require( 'Views/location.php' );
+require( 'views/locationArray.php');
 require( 'Views/_footer.php' );

@@ -23,14 +23,3 @@ $browser = new Browser();
 $loader  = new SplClassLoader( 'Instagram', dirname( INSTAGRAM_DIR ) );
 
 $loader->register();
-
-
-// $dbLink = new mysqli(DB_HOST, DB_USER, DB_PASSWORD);
-
-// /* check connection */
-// if (mysqli_connect_errno()) {
-//     printf("Connect failed: %s\n", mysqli_connect_error());
-//     exit();
-// }
-
-// $dbLink->select_db( DB_NAME );

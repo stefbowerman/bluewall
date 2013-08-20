@@ -39,22 +39,25 @@ a:hover {
 }
 
 header {
-	margin-top:200px; 
+	margin:80px 0; 
 }
 .header-content {
-	position:fixed;
+	text-align:center;
 }
 #title{
+	display:inline-block;
 	font-size:25px; 
 	line-height:30px; 
+	margin-bottom:25px;
 	text-transform:uppercase; 
 	font-weight:bold;
-	margin-bottom:25px;
+	letter-spacing:2px;
+	text-align: center;
 }
 
 .circles {
-	margin-top:2px;
-	height:16px;
+	margin-top:5px;
+	height:18px;
 }
 .circle {
 	width:5%;
@@ -87,11 +90,7 @@ header {
 	font-family: Courier;
 	display: none;
 }
-#content-stream {
-	margin-top:100px;
-	/*width:600px; */
-	/*margin: 0 auto;*/
-}
+#content-stream {}
 #content-stream img, #content-stream video {
 	max-width:100%; 
 	margin-bottom:10px;

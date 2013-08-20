@@ -43,7 +43,7 @@ require( __DIR__ . '/bootstrap.php');
 
 // $media = $mediaCollection->getLast();
 
-require( 'Views/_header.php' );
+require( 'views/_header.php' );
 //require( 'Views/location.php' );
 require( 'views/locationArray.php');
-require( 'Views/_footer.php' );
+require( 'views/_footer.php' );

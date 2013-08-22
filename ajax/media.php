@@ -1,5 +1,11 @@
 <?php 
 
+/*
+*
+* TODO - Not use pages, use the created at time for the last seen media
+*
+*/
+
 require('../bootstrap.php');
 
 if ( !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' )
@@ -39,9 +45,9 @@ if ( !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_RE
 		$mediaCollection->setData($dbData);		
 
 
-		foreach($mediaCollection as $k => $media){
+		foreach($mediaCollection as $media){
 			ob_start();
-			include( '../views/location.php' );
+			include( '../views/location-media.php' );
 			$htmlSnippet = ob_get_clean();
 
 			$json[] = array('html' => $htmlSnippet);

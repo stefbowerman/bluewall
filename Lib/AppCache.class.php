@@ -47,11 +47,14 @@ class AppCache {
 		}
 	}
 
-	public function getMediaCollectionData(){
+	public function getMediaCollectionData($count = 10){
 		$arrayOfSerials = $this->read();
 		$collection = array();
-		foreach ($arrayOfSerials as $serial)
+		foreach ($arrayOfSerials as $k =>$serial){
+			if($k == $count)
+				break;
 			$collection[] = unserialize($serial);
+		}
 
 		$mediaCollectionData = new stdClass();
 		$mediaCollectionData->data = $collection; // setData needs the $arg to respond to $arg->data

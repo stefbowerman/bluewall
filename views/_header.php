@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Whats Up On Broadway</title>
-	<meta name="description" content="">
+	<meta name="description" content="Instagram photo stream for the Girth™ Lab space in downtown LA.">
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" type="text/css" href="/assets/css/960-min.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
@@ -34,4 +34,5 @@
 
 		</header>
 
-		<div id="content-stream" class="grid_8 push_4">
+		<div class="grid_8 push_4">
+			<div id="content-stream" class="clearfix">

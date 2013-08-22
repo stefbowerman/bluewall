@@ -1,17 +1,29 @@
-<?php // Pull to update DB with most recent media
+<?php 
 
-require( __DIR__ . '/bootstrap.php');
+/*
+*  Task for adding missing instagram media to the DB
+*
+*  Must be included in a file that has already included the bootstrap file.
+*
+*/
 
-$instagram = new Instagram\Instagram;
-$instagram->setAccessToken( $accessToken );
+if( !isset($instagram)){
+
+	// Don't override this if it's already set
+
+	$instagram = new Instagram\Instagram;
+	$instagram->setAccessToken( $accessToken );
+}
+
+$foundCount 	= 0;
+$insertedCount  = 0;
+$duplicateCount = 0;
 
 $db = new Mysqlidb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $count = $db->rawQuery("SELECT COUNT(*) FROM instagram_media");
 $count = $count[0]['COUNT(*)'];
 
 if(!$count){
-
-	echo 'Nothing found in DB <br/>';
 
 	$location = $instagram->getLocation( $target['id'] );
 
@@ -27,8 +39,7 @@ if(!$count){
 		$maxId = $moreMedia->getNextMaxId();
 	} 
 
-	echo 'Found '.$mediaCollection->count().' media items';
-	echo '<br/>';
+	$foundCount = 0;
 
 	// Insert each object in the collection 
 	foreach($mediaCollection as $mediaObj){
@@ -40,11 +51,8 @@ if(!$count){
 
 		$insertSuccess = $db->insert('instagram_media', $insertion );
 
-		if($insertSuccess){
-			echo 'Inserted media with instagram id '.$instagramId.'</br>';
-		}else{
-			echo 'something went wrong';
-		}
+		$insertSuccess ? $insertedCount++ : $duplicateCount++;
+			
 	}
 
 }
@@ -63,10 +71,7 @@ else{
 
 		$insertSuccess = $db->insert('instagram_media', $insertion );
 
-		if($insertSuccess){
-			echo 'Inserted media with instagram id '.$instagramId.'</br>';
-		}else{
-			echo 'Duplicate entry, could not insert';
-		}
+		$insertSuccess ? $insertedCount++ : $duplicateCount++;
+
 	}
 }

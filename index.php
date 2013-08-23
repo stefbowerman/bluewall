@@ -34,6 +34,6 @@ else{
 require( 'views/_header.php' );
 
 foreach($mediaCollection as $media)
-	include( 'views/location-media.php' );
+	require( 'views/location-media.php' );
 
 require( 'views/_footer.php' );

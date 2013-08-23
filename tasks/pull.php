@@ -28,13 +28,13 @@ if(!$count){
 	$location = $instagram->getLocation( $target['id'] );
 
 	// Grab initial set of media
-	$mediaCollection = $location->getMedia();
-	$maxId = $mediaCollection->getNextMaxId();
+	$pullMediaCollection = $location->getMedia();
+	$maxId = $pullMediaCollection->getNextMaxId();
 
 	// Go back page by page to add more until we've gotten everything
 	while ( !is_null($maxId) ){
 		$moreMedia = $location->getMedia( array( 'max_id' => $maxId ) );
-		$mediaCollection->addData( $moreMedia );
+		$pullMediaCollection->addData( $moreMedia );
 
 		$maxId = $moreMedia->getNextMaxId();
 	} 
@@ -42,7 +42,7 @@ if(!$count){
 	$foundCount = 0;
 
 	// Insert each object in the collection 
-	foreach($mediaCollection as $mediaObj){
+	foreach($pullMediaCollection as $mediaObj){
 		$instagramId = $mediaObj->getId();
 		$createdAt = $mediaObj->getCreatedTime('U');
 		$data = $db->escape( serialize($mediaObj) );
@@ -61,8 +61,8 @@ else{
 	$minId = $row[0]['instagram_id'];
 
 	$location = $instagram->getLocation( $target['id'] );
-	$mediaCollection = $location->getMedia( array( 'min_id' => $minId ) );
-	foreach($mediaCollection as $mediaObj){
+	$pullMediaCollection = $location->getMedia( array( 'min_id' => $minId ) );
+	foreach($pullMediaCollection as $mediaObj){
 		$instagramId = $mediaObj->getId();
 		$createdAt = $mediaObj->getCreatedTime('U');
 		$data = $db->escape( serialize($mediaObj) );

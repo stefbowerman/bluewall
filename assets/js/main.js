@@ -11,7 +11,8 @@
 			baseURL        = '/ajax/media.php?page=',
 			page           = 1,
 			scrollDistance = 0.65,
-			isLoading      = false;
+			isLoading      = false,
+			isComplete     = false;
 
 		this.baseURL = baseURL;
 
@@ -23,13 +24,22 @@
 			return this;
 		}
 
-		appendMedia = function(html, index){
+		appendMedia = function(html, index, collection){
+			
+				$html = $(html)
+				$appendEl.append( $html );
 
-			$appendEl.append( $(html) );
+				if(index+1 == collection.length){
+
+					// Unlock it now that all items have been appended
+					isLoading = false;
+			
+				}
 
 		}
 
 		getNextPageContent = function(callback){
+
 			// Set Lock variable
 			isLoading = true;
 
@@ -37,7 +47,7 @@
 			self.nextPage();
 
 			// Show loading animation
-			$loader.show();
+			$loader.fadeIn('fast');
 
 			$.ajax({
 
@@ -47,20 +57,18 @@
 			.done(function(data) {
 
 				if(data.length){
+					$loader.fadeOut('600', function() {
+						for (var i = 0; i < data.length; i++) {
 
-					for (var i = 0; i < data.length; i++) {
-
-						appendMedia( data[i]['html'], i);
-					}
-
+							appendMedia( data[i]['html'], i, data );
+						}
+					});
 
 				}else{
-					// Remove the scroll handler
-					$win.unbind('scroll');
 
-					// Replace the loader?  Remove it?
+					isComplete = true;
 
-					$loader.remove();
+					$loader.fadeOut('600');
 
 				}
 			
@@ -71,16 +79,12 @@
 
 			})
 			.always(function() {
-
-				isLoading = false;
-
-				$loader.hide();
 			
 			});
 		}
 
 		$win.on('scroll', function(){
-			if( isLoading === false && ($win.scrollTop()/$doc.height() > scrollDistance) ){
+			if( isLoading === false && isComplete === false && ($win.scrollTop()/$doc.height() > scrollDistance) ){
 					getNextPageContent();
 	    	}
 		})
@@ -120,12 +124,51 @@
 		setInterval(randomBubble, 200);
 	}
 
+	function stickyHeader(){
+
+		var $win   = $(window),
+			$doc   = $(document),
+			$title = $('.header-content'),
+			$stickyEl = $('.sticky-header'),
+			opacity;
+
+			titleTopDistance    = $title.offset()['top'],
+			titleHeight         = $title.height()
+			titleBottomDistance = titleHeight + titleTopDistance ;
+
+		$win.on('scroll', function(){
+			var scrolledDown = $win.scrollTop()
+			
+			if( scrolledDown <= titleTopDistance ){
+				$stickyEl.css('opacity', 0);
+			}
+			else if ( scrolledDown >= titleBottomDistance ){
+				$stickyEl.css('opacity', 1);
+			}
+			else if( (scrolledDown > titleTopDistance) && (scrolledDown < titleBottomDistance) ){
+				opacity = 1 - (titleBottomDistance - scrolledDown) / titleTopDistance;
+				$stickyEl.css('opacity', opacity);
+			}
+			else{
+
+			}
+		});
+
+	}
+
 	$(function() {
 		
-		new ScrollAjax($('#content-stream'));
+		window.scrollAjax = new ScrollAjax($('#content-stream'));
 
 		new bubblingTitle('.circle');
 
+		//new stickyHeader();
+
+		// $('.sticky-header').css('margin-left', 350);
+		// setTimeout(function(){
+		// 	$('.sticky-header').animate({'margin-left' : 10})
+		// 	.css('margin-right', 10);
+		// }, 2000)
 		
 
 		

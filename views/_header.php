@@ -16,7 +16,14 @@
 </head>
 
 <body>
-	<div id="container" class="container_16">
+	<div class="sticky-header-wrap">
+		<div class="container_16">
+			<div class="sticky-header grid_4">
+				Whats Up On Broadway
+			</div>
+		</div>
+	</div>
+	<div class="container_16">
 		<header class="grid_10 push_3">
 			<div class="header-content">
 				<div id="title">
@@ -31,8 +38,8 @@
 					{ lat : '<?php echo round($target['latitude'], 5)?>', long : '<?php echo round($target['longitude'], 5)?>' }
 				</div>
 			</div>
-
 		</header>
-
+	</div>
+	<div class="container_16">
 		<div class="grid_8 push_4">
 			<div id="content-stream" class="clearfix">

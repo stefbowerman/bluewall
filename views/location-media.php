@@ -8,7 +8,9 @@
 
 	<?php include(__DIR__.'/location-media-image.php') ?>
 
-	<div class="post-caption">
-		<?php echo \Instagram\Helper::parseMentions( $media->getCaption(), $mentionsClosure ) ?>
-	</div>
+	<?php if($media->getCaption()):?>
+		<div class="post-caption">
+			<?php echo \Instagram\Helper::parseMentions( $media->getCaption(), $mentionsClosure ) ?>
+		</div>
+	<?php endif?>
 </div>

@@ -64,6 +64,11 @@
 						}
 					});
 
+					if(data.length < 10){
+						// If we pull back less than 10 items, we are done
+						isComplete = true;
+					}
+
 				}else{
 
 					isComplete = true;
@@ -160,7 +165,7 @@
 		
 		window.scrollAjax = new ScrollAjax($('#content-stream'));
 
-		new bubblingTitle('.circle');
+		//new bubblingTitle('.circle');
 
 		//new stickyHeader();
 
@@ -169,8 +174,14 @@
 		// 	$('.sticky-header').animate({'margin-left' : 10})
 		// 	.css('margin-right', 10);
 		// }, 2000)
-		
 
+
+		$('#content-stream').css({opacity: 0});
+
+		setTimeout(function(){
+			$('#content-stream').animate({opacity:1}, 1200);
+		}, 300);
+		
 		
 
 		// Viewing Videos

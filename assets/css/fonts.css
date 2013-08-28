@@ -1,4 +1,12 @@
 @font-face {
+    font-family: 'Chivo';
+    src: url('../fonts/Chivo/Chivo-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
     font-family: 'bebas_neueregular';
     src: url('../fonts/BebasNeue/BebasNeue-webfont.eot');
     src: url('../fonts/BebasNeue/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
@@ -13,6 +21,30 @@
 @font-face {
     font-family: 'Aller';
     src: url('../fonts/Aller/Aller_Rg.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Blackout';
+    src: url('../fonts/Blackout/Blackout-Midnight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Blackout 2AM';
+    src: url('../fonts/Blackout/Blackout-2am.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Yardsale';
+    src: url('../fonts/Yardsale/yardsale.TTF') format('truetype');
     font-weight: normal;
     font-style: normal;
 

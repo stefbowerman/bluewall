@@ -176,10 +176,10 @@
 		// }, 2000)
 
 
-		$('#content-stream').css({opacity: 0});
+		$('#content-stream, #title').css({opacity: 0});
 
 		setTimeout(function(){
-			$('#content-stream').animate({opacity:1}, 1200);
+			$('#content-stream, #title').animate({opacity:1}, 1200);
 		}, 300);
 		
 		

@@ -1,0 +1,192 @@
+@import "variables.scss";
+@import "mixins.scss";
+
+@import "normalize.scss";
+
+@import "base.scss";
+
+@import "fonts.scss";
+@import "font-awesome/font-awesome.scss";
+
+
+header {
+	margin: 4% 0 10%;
+}
+.header-content {
+	text-align:center;
+	margin-left:-12px;
+	margin-right:-12px;
+}
+#title-wrap {
+	margin-bottom:25px;
+	border-bottom: 1px solid #EFEFEF;
+}
+#title{
+	font-size:35px; 
+	line-height:40px; 
+	padding-bottom:25px;
+	text-transform:uppercase; 
+	font-weight:bold;
+	text-align: center;
+	color: $white;
+	// text-shadow: 0 1px 1px rgba(87, 87, 87, 0.49), 0 -1px 2px rgba(95, 95, 95, 0.4);
+	text-shadow: -1px -1px 0 #000,  
+				  1px -1px 0 #000,
+				 -1px 1px  0 #000,
+				  1px 1px  0 #000,
+				  0   0    5px rgba(100, 100, 100, 0.6);
+	i { display:none }
+}
+
+#content-stream {
+	margin-bottom:100px;
+	img, video {
+		max-width:100%
+	}
+}
+
+.stream-img {
+	border: 1px solid #DDD;
+	border-bottom-color:#D0D0D0;
+	@include border-top-left-radius($baseBorderRadius);
+	@include border-top-right-radius($baseBorderRadius);
+	@include box-shadow(0px 0px 15px -2px rgba(0, 0, 0, 0.1));
+}
+
+.post {
+	max-width:612px; /* Standard res image width */
+	display:block;
+	margin: 0 auto 60px;
+}
+.post-meta {
+	margin-bottom:10px;
+	padding: 0 3px;
+}
+.post-author {
+	float:left;
+}
+.post-time {
+	float:right; 
+
+	i {
+		position:relative;
+		top:-2px;
+		margin-left:5px;
+		font-size:$fontSizeExtraLarge;
+		vertical-align: middle;
+		color:darken($gray, 10%);
+	}
+}
+.post-caption {
+	text-align: center;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	margin: -1px 5px 0;
+	padding: 12px 10px;
+    border: 1px solid #DDD;
+    border-top: none;
+	background-color: rgba(240, 240, 240, 0.21);
+	@include border-bottom-left-radius($baseBorderRadius);
+	@include border-bottom-right-radius($baseBorderRadius);
+	@include box-shadow(0 5px 15px -10px rgba(0, 0, 0, 0.3));
+}
+
+.media-holder {
+	position:relative;
+	/*min-height:600px;*/
+}
+
+/* Video Player */
+.media-play{
+    position: absolute;
+    top: 0;
+    bottom: 13px;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    @include transition(background-color 0.2s ease-out);
+}
+.media-play:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    @include transition(background-color 0.2s ease-out);
+}
+.media-play:hover .play-button, .media-play:hover .play-arrow {
+	opacity:1;
+}
+.play-button {
+    height: 90px;
+    width: 90px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -45px;
+    margin-left: -45px;
+    -webkit-border-radius: 45px;
+	-moz-border-radius: 45px;
+	-khtml-border-radius: 45px;
+	border-radius: 45px; 
+    border: 3px solid #DDD;
+    opacity:0.8;
+    cursor: pointer;
+    @include transition(all 0.2s ease-out);
+}
+.play-button:hover, 
+.play-button:hover .play-arrow {
+ 	border-left-color: $white;
+	@include transition(all 0.2s ease-out);
+}
+.play-arrow {
+	width: 0; 
+	height: 0; 
+	position: absolute;
+	left: 26px;
+	top: 18px;
+	border-top: 25px solid transparent;
+	border-bottom: 25px solid transparent;
+	border-left: 45px solid #DDD;
+	opacity:0.8;
+	@include transition(all 0.2s ease-out);
+}
+
+.loader, .stream-end {
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0;
+	text-align:center;
+	margin-bottom:40px;
+}
+.stream-end i {
+	font-size:40px;
+}
+.scroll-me-up {
+	position: fixed;
+    right: 20px;
+    bottom: 20px;
+    font-size: 30px;
+    opacity:0.5;
+    @include transition(right 0.3s ease-out, opacity 0.3s ease-out);
+    &:hover{
+    	opacity:1;
+    	@include transition(right 0.3s ease-out, opacity 0.3s ease-out);
+    }
+    &:active {
+    	@include scale(0.95)
+    }
+    &.off-stage {
+    	right: -40px;
+    	opacity: 0;
+    	@include transition(right 0.8s ease-out, opacity 0.3s ease-out);
+    }
+    a, a:hover, a:active, a:visited {
+    	color: inherit;
+    }
+
+}
+
+
+footer {
+	height:40px;
+	background-color:#333;
+	display:none;
+}

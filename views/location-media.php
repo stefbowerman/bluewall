@@ -3,6 +3,7 @@
 		<div class="post-author"></div>
 		<div class="post-time">
 			<?php echo $media->getCreatedTimeAgo() ?>
+			<i class="icon-globe"></i>
 		</div>
 	</div>
 

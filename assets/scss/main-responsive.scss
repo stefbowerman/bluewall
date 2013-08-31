@@ -1,0 +1,12 @@
+@import "variables.scss";
+@import "mixins.scss";
+
+@import "_responsive-phone-portrait.scss";
+@import "_responsive-phone.scss";
+@import "_responsive-tablet.scss";
+
+@media only screen and (max-width: 949px) {
+	.scroll-me-up {
+		display: none !important;
+	}
+}

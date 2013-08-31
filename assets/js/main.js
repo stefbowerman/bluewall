@@ -6,6 +6,7 @@
 		var self           = this,
 			$appendEl      = $el,
 			$loader        = $('#loader'),
+			$streamEnd     = $('#stream-end'),
 			$win           = $(window),
 			$doc           = $(document),
 			baseURL        = '/ajax/media.php?page=',
@@ -73,7 +74,9 @@
 
 					isComplete = true;
 
-					$loader.fadeOut('600');
+					$loader.fadeOut('600', function(){
+						$streamEnd.fadeIn();
+					});
 
 				}
 			
@@ -97,95 +100,57 @@
 		return this;
 	}
 
-	// Bubbling Header
+	// Scroll to Top
 
-	function bubblingTitle(circleClass){
-		var bubblingList = {} /* Object to store state of each circle */ ,
-			circles = $(circleClass) /* Cache the circles */;
+	function topScroller(){
 
-		getRandomInt = function(min, max) {
-		    return Math.floor(Math.random() * (max - min + 1)) + min;
-		}
-		
-		randomBubble = function(){
-			var index = getRandomInt(0, circles.length);
+		var $win     = $(window),
+			$el      = $('.scroll-me-up'),
+			checking = false; // Lock for scroll event throttling
 
-			if(typeof(bubblingList[index]) != "undefined"){
-				return false;
-			}
-			
-			var $circle = $(circles[index]);
+		checkPosition = function(){
+			checking = true;
 
-			$circle.addClass('hover');
-
-			bubblingList[index] = setTimeout( function(){
-													// Remove the hover class
-													$circle.removeClass('hover');
-													// Then delete the property under this index key
-													delete bubblingList[index];
-											  }, 300);
-		}
-
-		setInterval(randomBubble, 200);
-	}
-
-	function stickyHeader(){
-
-		var $win   = $(window),
-			$doc   = $(document),
-			$title = $('.header-content'),
-			$stickyEl = $('.sticky-header'),
-			opacity;
-
-			titleTopDistance    = $title.offset()['top'],
-			titleHeight         = $title.height()
-			titleBottomDistance = titleHeight + titleTopDistance ;
+			$win.scrollTop() > 5000 ? $el.removeClass('off-stage') : $el.addClass('off-stage');
+				
+			setTimeout(function(){checking=false}, 100);
+		};
 
 		$win.on('scroll', function(){
-			var scrolledDown = $win.scrollTop()
+			if(checking === false){
+				checkPosition();				
+			}
+			return false;
 			
-			if( scrolledDown <= titleTopDistance ){
-				$stickyEl.css('opacity', 0);
-			}
-			else if ( scrolledDown >= titleBottomDistance ){
-				$stickyEl.css('opacity', 1);
-			}
-			else if( (scrolledDown > titleTopDistance) && (scrolledDown < titleBottomDistance) ){
-				opacity = 1 - (titleBottomDistance - scrolledDown) / titleTopDistance;
-				$stickyEl.css('opacity', opacity);
-			}
-			else{
-
-			}
 		});
+
+		$('.scroll-me-up').find('a').click(function(){
+			checking = true
+			$el.addClass('off-stage');
+			$("body").animate({ scrollTop: 0 }, "slow", function(){checking = false});
+			
+		})
 
 	}
 
 	$(function() {
 		
+		// Create infinite scroll
 		window.scrollAjax = new ScrollAjax($('#content-stream'));
 
-		//new bubblingTitle('.circle');
+		// Create a top scroller
+		new topScroller();
 
-		//new stickyHeader();
-
-		// $('.sticky-header').css('margin-left', 350);
-		// setTimeout(function(){
-		// 	$('.sticky-header').animate({'margin-left' : 10})
-		// 	.css('margin-right', 10);
-		// }, 2000)
-
-
-		$('#content-stream, #title').css({opacity: 0});
+		// Fade in Content
+		$('#content-stream, header').css({opacity: 0});
 
 		setTimeout(function(){
-			$('#content-stream, #title').animate({opacity:1}, 1200);
+			$('#content-stream, header').animate({opacity:1}, 1200);
 		}, 300);
 		
 		
 
 		// Viewing Videos
-
 		$('.play-button').click(function(){
 			$('img[data-video-url]').trigger('click');
 			$('.media-play').hide();

@@ -149,7 +149,6 @@
 			
 			setTimeout(function(){
 					$('#content-stream, header')
-					.removeClass('opacity-hide')
 					.addClass('opacity-trans-show');
 			}, 300);
 			

@@ -141,12 +141,28 @@
 		// Create a top scroller
 		new topScroller();
 
+		
 		// Fade in Content
-		$('#content-stream, header').css({opacity: 0});
 
-		setTimeout(function(){
-			$('#content-stream, header').animate({opacity:1}, 1200);
-		}, 300);
+		if($('html').hasClass('csstransitions')){ // Use CSS3 if supported
+
+			$('#content-stream, header').addClass('opacity-trans-hide');
+			
+			setTimeout(function(){
+					$('#content-stream, header')
+					.removeClass('opacity-trans-hide')
+					.addClass('opacity-trans-show');
+			}, 300);
+			
+
+		}else{ // Fallback to jquery animation
+
+			$('#content-stream, header').css({opacity: 0});
+
+			setTimeout(function(){
+				$('#content-stream, header').animate({opacity:1}, 1200);
+			}, 300);
+		}
 		
 		
 

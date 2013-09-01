@@ -1,6 +1,9 @@
 <div class="post">
 	<div class="post-meta clearfix">
-		<div class="post-author"></div>
+		<div class="post-author">
+			<i class="icon-heart"></i>
+			<?php echo $media->getLikesCount()?>
+		</div>
 		<div class="post-time">
 			<?php echo $media->getCreatedTimeAgo() ?>
 			<i class="icon-globe"></i>

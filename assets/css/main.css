@@ -1721,6 +1721,16 @@ header {
   #title i {
     display: none; }
 
+.opacity-trans-hide {
+  opacity: 0; }
+
+.opacity-trans-show {
+  opacity: 1;
+  -webkit-transition: opacity 1.2s ease-out;
+  -moz-transition: opacity 1.2s ease-out;
+  -o-transition: opacity 1.2s ease-out;
+  transition: opacity 1.2s ease-out; }
+
 #content-stream {
   margin-bottom: 100px; }
   #content-stream img, #content-stream video {
@@ -1748,19 +1758,22 @@ header {
 .post-meta {
   margin-bottom: 10px;
   padding: 0 3px; }
+  .post-meta i {
+    position: relative;
+    top: -2px;
+    font-size: 18.2px;
+    vertical-align: middle;
+    color: #3b3b3b; }
 
 .post-author {
   float: left; }
+  .post-author i {
+    margin-right: 5px; }
 
 .post-time {
   float: right; }
   .post-time i {
-    position: relative;
-    top: -2px;
-    margin-left: 5px;
-    font-size: 18.2px;
-    vertical-align: middle;
-    color: #3b3b3b; }
+    margin-left: 5px; }
 
 .post-caption {
   text-align: center;

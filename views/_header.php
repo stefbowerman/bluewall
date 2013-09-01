@@ -16,7 +16,7 @@
 	<!-- link rel="stylesheet" type="text/css" href="/assets/css/960-min.css" media="screen" -->
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main-responsive.css" media="screen">
-	<!-- script src="js/vendor/modernizr-2.6.2.min.js"></script -->
+	<script src="/assets/js/vendor/modernizr-custom.min.js"></script>
 </head>
 
 <body>

@@ -38,9 +38,16 @@ header {
 	i { display:none }
 }
 
-.opacity-trans-hide {
+.opacity-hide {
 	opacity : 0;
 	//@include transition(opacity 1.2s ease-out);
+}
+.opacity-trans-hide {
+	opacity : 0;
+	@include transition(opacity 1.2s ease-out);
+}
+.opacity-show{
+	opacity: 1;
 }
 .opacity-trans-show {
 	opacity : 1;

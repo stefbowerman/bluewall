@@ -1721,8 +1721,18 @@ header {
   #title i {
     display: none; }
 
-.opacity-trans-hide {
+.opacity-hide {
   opacity: 0; }
+
+.opacity-trans-hide {
+  opacity: 0;
+  -webkit-transition: opacity 1.2s ease-out;
+  -moz-transition: opacity 1.2s ease-out;
+  -o-transition: opacity 1.2s ease-out;
+  transition: opacity 1.2s ease-out; }
+
+.opacity-show {
+  opacity: 1; }
 
 .opacity-trans-show {
   opacity: 1;

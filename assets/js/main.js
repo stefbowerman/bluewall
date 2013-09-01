@@ -143,14 +143,13 @@
 
 		
 		// Fade in Content
+		$('#content-stream, header').addClass('opacity-hide');
 
-		if($('html').hasClass('csstransitions')){ // Use CSS3 if supported
-
-			$('#content-stream, header').addClass('opacity-trans-hide');
+		if($('html').hasClass('csstransitions')){ // Use CSS3 if supported	
 			
 			setTimeout(function(){
 					$('#content-stream, header')
-					.removeClass('opacity-trans-hide')
+					.removeClass('opacity-hide')
 					.addClass('opacity-trans-show');
 			}, 300);
 			
@@ -160,7 +159,9 @@
 			$('#content-stream, header').css({opacity: 0});
 
 			setTimeout(function(){
-				$('#content-stream, header').animate({opacity:1}, 1200);
+				$('#content-stream, header').animate({opacity:1}, 1200, function(){
+					$('#content-stream, header').removeClass('opacity-hide');
+				});
 			}, 300);
 		}
 		

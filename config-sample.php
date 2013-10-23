@@ -35,3 +35,5 @@ $mentionsClosure = function($m){
 }; 
 
 $timeFormat = 'n.j.Y' ; /* String for time formatting */
+
+$websiteTitle = 'Website Header Goes Here';

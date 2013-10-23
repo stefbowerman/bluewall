@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>Whats Up On Broadway</title>
+	<title><?php echo $websiteTitle ?></title>
 	<meta name="description" content="Instagram photo stream for the Girth™ Lab space at 435 Broadway in downtown LA. ">
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" type="text/css" href="/assets/css/foundation/foundation.css" media="screen">
@@ -17,6 +17,10 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main-responsive.css" media="screen">
 	<script src="/assets/js/vendor/modernizr-custom.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.10.2.js"><\/script>')</script>
+	<script src="/assets/js/vendor/jquery-viewport.min.js"></script>
+	<script src="/assets/js/main.js"></script>
 </head>
 
 <body>
@@ -25,7 +29,7 @@
 			<div class="header-content">
 				<div id="title-wrap">
 					<div id="title">
-						Whats Up On Broadway
+						<?php echo $websiteTitle ?>
 					</div>
 				</div>
 			</div>
